@@ -4,7 +4,7 @@ describe Plane do
   context "state" do
     it "has a state" do
       plane = Plane.new
-      expect(plane.state).to eq("Landed")
+      expect(plane.state).to eq("Flying")
     end
 
     it "can be flying" do
