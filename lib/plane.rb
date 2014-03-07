@@ -4,11 +4,11 @@ class Plane
     @state = "landed"
   end
 
-  def take_off
-    @state = "flying"
+  def take_off_in(weather)
+    @state = "flying" if weather == "sunny"
   end
 
-  def land
-    @state = "landed"
+  def land_in(weather)
+    @state = "landed" if weather == "sunny"
   end
 end
