@@ -4,12 +4,14 @@ describe Plane do
   context "state" do
     let(:plane){Plane.new}
 
-    it "can be flying" do
-      expect(plane).to be_flying
+    it "can be landed" do
+      expect(plane.state).to eq("landed")
     end
 
-    it "can be landed" do
-      expect(plane). to be_landed
+      it "can be flying" do
+      plane.take_off
+      expect(plane.state).to eq("flying")
     end
+
   end
 end

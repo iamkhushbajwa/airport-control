@@ -1,9 +1,13 @@
 class Plane
-  def flying?
-    true
+  def initialize
+    @state = "landed"
   end
 
-  def landed?
-    true
+  def take_off
+    @state = "flying"
+  end
+
+  def state
+    @state
   end
 end
