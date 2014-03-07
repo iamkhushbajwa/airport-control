@@ -8,6 +8,7 @@ describe Airport do
 
     def fill_airport
       100.times{
+        expect(flying_plane).to receive(:landing)
         airport.allow_landing(flying_plane)
       }
     end
@@ -22,6 +23,7 @@ describe Airport do
     end
 
     it "can allow landing of planes" do
+      expect(flying_plane).to receive(:landing)
       airport.allow_landing(flying_plane)
       expect(airport.planes).to eq([flying_plane])
     end
@@ -37,22 +39,17 @@ describe Airport do
       expect(lambda {airport.allow_take_off(grounded_plane)}).to raise_error(RuntimeError)
     end
 
-    xit "ensure that only flying planes can be landed" do
+    it "ensure that only flying planes can be landed" do
+      expect(flying_plane).to receive(:landing)
       airport.allow_landing(flying_plane)
       expect(airport.planes).to eq([flying_plane])
       expect(lambda {airport.allow_landing(grounded_plane)}).to raise_error(RuntimeError)
-    end
-
-    xit "ensure that only grounded planes can take off" do
-      airport.allow_landing(flying_plane)
-      expect(airport.planes).to eq([flying_plane])
-      airport.allow_take_off(flying_plane)
-      # expect(lambda {airport.allow_take_off(flying_plane)}).to raise_error(RuntimeError)
     end
   end
 
   context "Extreme Weather Traffic Control" do
     it "won't allow take off if weather is stormy" do
+      expect(flying_plane).to receive(:landing)
       airport.allow_landing(flying_plane)
       airport.weather = "Stormy"
       expect(lambda {airport.allow_take_off(grounded_plane)}).to raise_error(RuntimeError)

@@ -20,15 +20,15 @@ class Airport
     raise "You are already on the ground, you cannot land again" if plane.state == "Landed"
     raise "Airport is under storm conditions, no landing is possible" if weather == "Stormy"
     raise "Airport is full" if full?
+    plane.landing
     planes << plane
-    plane.state = "Landed" if plane.class == Plane
   end
 
   def allow_take_off(plane)
     raise "You are already flying, you cannot take_off again" if plane.state == "Flying"
     raise "Airport is under storm conditions, no take off is possible" if weather == "Stormy"
     raise "No planes at airport" if empty?
-    # plane.state = "Flying"
+    plane.taking_off
     planes.delete(plane)
   end
 
