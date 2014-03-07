@@ -55,6 +55,16 @@ describe Airport do
       expect(airport.planes).to eq([flying_plane])
       expect(lambda {airport.allow_landing(grounded_plane)}).to raise_error(RuntimeError)
     end
+
+    it "ensures only planes based there can take" do
+      airport_one = Airport.new
+      airport_two = Airport.new
+      expect(flying_plane).to receive(:landing)
+      allow(airport_one).to receive(:weather) {"Sunny"}
+      allow(airport_two).to receive(:weather) {"Sunny"}
+      airport_one.allow_landing(flying_plane)
+      expect(lambda {airport_two.allow_take_off(flying_plane)}).to raise_error(RuntimeError)
+    end
   end
 
   context "Extreme Weather Traffic Control" do

@@ -17,19 +17,23 @@ class Airport
   end
 
   def allow_landing(plane)
-    raise "You are already on the ground, you cannot land again" if plane.state == "Landed"
     raise "Airport is under storm conditions, no landing is possible" if weather == "Stormy"
+    raise "You are already on the ground, you cannot land again" if plane.state == "Landed"
     raise "Airport is full" if full?
     plane.landing
     planes << plane
   end
 
   def allow_take_off(plane)
-    raise "You are already flying, you cannot take_off again" if plane.state == "Flying"
-    raise "Airport is under storm conditions, no take off is possible" if weather == "Stormy"
-    raise "No planes at airport" if empty?
-    plane.taking_off
-    planes.delete(plane)
+    if planes.include?(plane)
+      raise "Airport is under storm conditions, no take off is possible" if weather == "Stormy"
+      raise "You are already flying, you cannot take_off again" if plane.state == "Flying"
+      raise "No planes at airport" if empty?
+      plane.taking_off
+      planes.delete(plane)
+    else
+      raise "You are are not currently at this airport"
+    end
   end
 
 end
