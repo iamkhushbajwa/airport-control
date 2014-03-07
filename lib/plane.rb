@@ -7,6 +7,10 @@ class Plane
     @state = "flying"
   end
 
+  def land
+    @state = "landed"
+  end
+
   def state
     @state
   end
