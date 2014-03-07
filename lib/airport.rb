@@ -6,16 +6,22 @@ class Airport
     @planes = []
   end
 
-  def park(plane)
-    planes << plane
-  end
-
-    def full?
+  def full?
     planes.count == capacity
   end
 
   def empty?
     planes.count == 0
+  end
+
+  def allow_landing(plane)
+    raise "Aiport is full/No plane as argument" if full? #|| !plane.instance_of?(Plane)
+    planes << plane
+  end
+
+  def allow_take_off(plane)
+    raise "No planes at airport/No plane as argument" if empty? #|| !plane.instance_of?(Plane)
+    planes.delete(plane)
   end
 
 end

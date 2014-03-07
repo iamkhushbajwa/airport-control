@@ -8,7 +8,7 @@ describe Airport do
     def fill_airport
       100.times{
         plane = double :plane
-        airport.park(plane)
+        airport.allow_landing(plane)
       }
     end
 
@@ -21,9 +21,9 @@ describe Airport do
       expect(airport_two.capacity).to eq(50)
     end
 
-    it "can park planes" do
+    it "can allow landing of planes" do
       plane = double :plane
-      airport.park(plane)
+      airport.allow_landing(plane)
       expect(airport.planes).to eq([plane])
     end
 
