@@ -3,8 +3,16 @@ require_relative "../lib/airport"
 describe Airport do
 
   context "Traffic control" do
+    let(:airport){Airport.new}
+
+    def fill_airport
+      100.times{
+        plane = double :plane
+        airport.park(plane)
+      }
+    end
+
     it "can have capacity" do
-      airport = Airport.new
       expect(airport.capacity).to eq(100)
     end
 
@@ -14,11 +22,18 @@ describe Airport do
     end
 
     it "can park planes" do
-      airport = Airport.new
       plane = double :plane
       airport.park(plane)
       expect(airport.planes).to eq([plane])
     end
 
+    it "knows when it is full" do
+      fill_airport
+      expect(airport.full?).to be_true
+    end
+
+    it "knows when it is empty" do
+      expect(airport.empty?).to be_true
+    end
   end
 end

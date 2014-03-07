@@ -7,7 +7,15 @@ class Airport
   end
 
   def park(plane)
-    @planes << plane
+    planes << plane
+  end
+
+    def full?
+    planes.count == capacity
+  end
+
+  def empty?
+    planes.count == 0
   end
 
 end
