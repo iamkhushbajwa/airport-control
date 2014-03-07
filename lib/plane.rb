@@ -1,4 +1,5 @@
 class Plane
+  attr_reader :state
   def initialize
     @state = "landed"
   end
@@ -9,9 +10,5 @@ class Plane
 
   def land
     @state = "landed"
-  end
-
-  def state
-    @state
   end
 end
