@@ -34,14 +34,22 @@ class Airport
 
   def allow_landing(plane)
     check_errors_for("Landing", plane)
-    plane.landing
-    planes << plane
+    land(plane)
   end
 
   def allow_take_off(plane)
     check_errors_for("Take Off", plane)
+    take_off(plane)
+  end
+
+  def take_off(plane)
     plane.taking_off
     planes.delete(plane)
+  end
+
+  def land(plane)
+    plane.landing
+    planes << plane
   end
 
 end
