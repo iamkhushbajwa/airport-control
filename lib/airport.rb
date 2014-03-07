@@ -22,13 +22,14 @@ class Airport
   end
 
   def check_for_take_off_errors(plane)
+    raise "You are are not currently at this airport" if !planes.include?(plane)
     raise "You are already flying, you cannot take off again" if plane.state == "Flying"
     raise "No planes at airport" if empty?
   end
 
   def check_errors_for(command, plane)
     raise "Airport is under storm conditions, no landing/take off is possible" if weather == "Stormy"
-    command == "Landing" ? check_for_landing_errors(plane) : check_for_take_off_errors    
+    command == "Landing" ? check_for_landing_errors(plane) : check_for_take_off_errors(plane)
   end
 
   def allow_landing(plane)
@@ -38,13 +39,9 @@ class Airport
   end
 
   def allow_take_off(plane)
-    if planes.include?(plane)
-      check_errors_for("Take Off", plane)
-      plane.taking_off
-      planes.delete(plane)
-    else
-      raise "You are are not currently at this airport"
-    end
+    check_errors_for("Take Off", plane)
+    plane.taking_off
+    planes.delete(plane)
   end
 
 end
