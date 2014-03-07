@@ -1,5 +1,3 @@
-require_relative "plane"
-
 DEFAULT_CAPACITY = 100
 class Airport
   attr_reader :capacity, :planes
@@ -23,7 +21,7 @@ class Airport
     raise "Airport is under storm conditions, no landing is possible" if weather == "Stormy"
     raise "Airport is full" if full?
     planes << plane
-    # plane.state = "Landed"
+    plane.state = "Landed" if plane.class == Plane
   end
 
   def allow_take_off(plane)
