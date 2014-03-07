@@ -4,19 +4,23 @@ describe Airport do
   let(:airport){Airport.new}
   let(:flying_plane){double :flying_plane,{:state => "Flying"}}
   let(:grounded_plane){double :grounded_plane,{:state => "Landed"}}
+
+  def fill_airport
+    100.times{
+      expect(flying_plane).to receive(:landing)
+      airport.allow_landing(flying_plane)
+    }
+  end
+
+  def set_sunny_weather
+    allow(airport).to receive(:weather) {"Sunny"}
+  end
+
+  def set_stormy_weather
+    allow(airport).to receive(:weather) {"Stormy"}
+  end
+
   context "Standard Traffic control" do
-
-    def fill_airport
-      100.times{
-        expect(flying_plane).to receive(:landing)
-        airport.allow_landing(flying_plane)
-      }
-    end
-
-    def set_sunny_weather
-      allow(airport).to receive(:weather) {"Sunny"}
-    end
-
     it "can have capacity" do
       set_sunny_weather
       expect(airport.capacity).to eq(100)
@@ -68,11 +72,10 @@ describe Airport do
   end
 
   context "Extreme Weather Traffic Control" do
-    def set_stormy_weather
-      allow(airport).to receive(:weather) {"Stormy"}
-    end
+
 
     it "won't allow take off if weather is stormy" do
+      set_sunny_weather
       expect(flying_plane).to receive(:landing)
       airport.allow_landing(flying_plane)
       set_stormy_weather
