@@ -16,19 +16,30 @@ class Airport
     planes.count == 0
   end
 
-  def allow_landing(plane)
-    raise "Airport is under storm conditions, no landing is possible" if weather == "Stormy"
+  def check_for_landing_errors(plane)
     raise "You are already on the ground, you cannot land again" if plane.state == "Landed"
     raise "Airport is full" if full?
+  end
+
+  def check_for_take_off_errors(plane)
+    raise "You are already flying, you cannot take off again" if plane.state == "Flying"
+    raise "No planes at airport" if empty?
+  end
+
+  def check_errors_for(command, plane)
+    raise "Airport is under storm conditions, no landing/take off is possible" if weather == "Stormy"
+    command == "Landing" ? check_for_landing_errors(plane) : check_for_take_off_errors    
+  end
+
+  def allow_landing(plane)
+    check_errors_for("Landing", plane)
     plane.landing
     planes << plane
   end
 
   def allow_take_off(plane)
     if planes.include?(plane)
-      raise "Airport is under storm conditions, no take off is possible" if weather == "Stormy"
-      raise "You are already flying, you cannot take_off again" if plane.state == "Flying"
-      raise "No planes at airport" if empty?
+      check_errors_for("Take Off", plane)
       plane.taking_off
       planes.delete(plane)
     else
