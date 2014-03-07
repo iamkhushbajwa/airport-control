@@ -5,7 +5,8 @@ class Airport
   def initialize(options={})
     @capacity = options[:capacity] || DEFAULT_CAPACITY
     @planes = []
-    @weather = "Sunny"
+    @weather =["Sunny", "Stormy", "Sunny", "Sunny", "Sunny", "Sunny"].sample
+    # @weather = "Sunny"
   end
 
   def full?
