@@ -6,7 +6,6 @@ class Airport
     @capacity = options[:capacity] || DEFAULT_CAPACITY
     @planes = []
     @weather =["Sunny", "Stormy", "Sunny", "Sunny", "Sunny", "Sunny"].sample
-    # @weather = "Sunny"
   end
 
   def full?
