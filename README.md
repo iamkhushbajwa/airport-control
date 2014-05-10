@@ -1,4 +1,4 @@
-airport-control
+airport-control [![Code Climate](https://codeclimate.com/github/khushkaran/airport-control.png)](https://codeclimate.com/github/khushkaran/airport-control)
 ---
 Week 3 test at Makers Academy.
 
